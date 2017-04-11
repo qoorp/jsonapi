@@ -270,7 +270,11 @@ func unmarshalNode(data *Node, model reflect.Value, included *map[string]*Node) 
 
 			// Handle field of type dbr.NullBool
 			if fieldValue.Type() == reflect.TypeOf(dbr.NullBool{}) {
-				fieldValue.Set(reflect.ValueOf(dbr.NewNullBool(v)))
+				if v.Kind() == reflect.Bool {
+					fieldValue.Set(reflect.ValueOf(dbr.NewNullBool(v.Interface().(bool))))
+				} else {
+					fieldValue.Set(reflect.ValueOf(dbr.NewNullBool(nil)))
+				}
 				continue
 			}
 
