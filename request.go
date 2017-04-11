@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/wilonth/dbr"
 	"io"
 	"reflect"
 	"strconv"
@@ -266,6 +267,12 @@ func unmarshalNode(data *Node, model reflect.Value, included *map[string]*Node) 
 			}
 
 			v := reflect.ValueOf(val)
+
+			// Handle field of type dbr.NullBool
+			if fieldValue.Type() == reflect.TypeOf(dbr.NullBool{}) {
+				fieldValue.Set(reflect.ValueOf(dbr.NewNullBool(v)))
+				continue
+			}
 
 			// Handle field of type time.Time
 			if fieldValue.Type() == reflect.TypeOf(time.Time{}) {
