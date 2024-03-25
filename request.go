@@ -5,16 +5,17 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/wilonth/dbr"
 	"io"
 	"reflect"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/gocraft/dbr"
 )
 
 const (
-	unsuportedStructTagMsg = "Unsupported jsonapi tag annotation, %s"
+	unsupportedStructTagMsg = "Unsupported jsonapi tag annotation, %s"
 )
 
 var (
@@ -46,24 +47,23 @@ var (
 // For example you could pass it, in, req.Body and, model, a BlogPost
 // struct instance to populate in an http handler,
 //
-//   func CreateBlog(w http.ResponseWriter, r *http.Request) {
-//   	blog := new(Blog)
+//	func CreateBlog(w http.ResponseWriter, r *http.Request) {
+//		blog := new(Blog)
 //
-//   	if err := jsonapi.UnmarshalPayload(r.Body, blog); err != nil {
-//   		http.Error(w, err.Error(), 500)
-//   		return
-//   	}
+//		if err := jsonapi.UnmarshalPayload(r.Body, blog); err != nil {
+//			http.Error(w, err.Error(), 500)
+//			return
+//		}
 //
-//   	// ...do stuff with your blog...
+//		// ...do stuff with your blog...
 //
-//   	w.Header().Set("Content-Type", jsonapi.MediaType)
-//   	w.WriteHeader(201)
+//		w.Header().Set("Content-Type", jsonapi.MediaType)
+//		w.WriteHeader(201)
 //
-//   	if err := jsonapi.MarshalOnePayload(w, blog); err != nil {
-//   		http.Error(w, err.Error(), 500)
-//   	}
-//   }
-//
+//		if err := jsonapi.MarshalOnePayload(w, blog); err != nil {
+//			http.Error(w, err.Error(), 500)
+//		}
+//	}
 //
 // Visit https://github.com/google/jsonapi#create for more info.
 //
@@ -533,7 +533,7 @@ func unmarshalNode(data *Node, model reflect.Value, included *map[string]*Node) 
 			}
 
 		} else {
-			er = fmt.Errorf(unsuportedStructTagMsg, annotation)
+			er = fmt.Errorf(unsupportedStructTagMsg, annotation)
 		}
 	}
 
