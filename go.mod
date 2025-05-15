@@ -1,10 +1,8 @@
 module github.com/qoorp/jsonapi
 
-go 1.22.1
+go 1.24.0
 
 require (
-	github.com/gocraft/dbr v0.0.0-20190714181702-8114670a83bd
+	github.com/gocraft/dbr/v2 v2.7.7
 	github.com/google/jsonapi v1.0.0
 )
-
-require google.golang.org/appengine v1.6.8 // indirect

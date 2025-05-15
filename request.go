@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gocraft/dbr"
+	"github.com/gocraft/dbr/v2"
 )
 
 const (
